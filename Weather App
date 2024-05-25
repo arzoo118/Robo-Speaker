@@ -1,0 +1,32 @@
+#PROJECT 2
+# WEATHER APP
+
+!pip install gtts
+
+from gtts import gTTS as g
+from IPython.display import Audio, display
+
+def t_t_s(text):
+    tts = g(text)
+    tts.save("say.mp3")
+    return "say.mp3"
+
+def play_audio(file_path):
+    display(Audio(file_path, autoplay=True))
+
+n = 10000000000
+
+import requests
+import json
+
+city =  input("ENTER  A CITY :")
+url = f"https://api.weatherapi.com/v1/current.json?key=983045c98f0e44f985585454231712&q={city}"
+
+r = requests.get(url)
+wdic = json.loads(r.text)
+w = wdic["temp_c"]
+
+
+say = t_t_s(f"The current temprature in {city} is {w} degree celcius.  ")
+
+play_audio(say)
